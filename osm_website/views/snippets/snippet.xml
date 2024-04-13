@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="s_map_osm_options" inherit_id="website.snippet_options">
+        <xpath expr="//div[@data-js='Box']" position="before">
+             <div data-js="Osmmap" data-selector=".s_map_osm">
+                <we-input class="o_we_large" string="Address" data-select-data-attribute="" data-no-preview="true" data-attribute-name="mapAddress" placeholder="e.g. De Brouckere, Brussels, Belgium"/>
+                <we-checkbox string="Description" data-no-preview="true" data-show-description="true"/>
+             </div>
+        </xpath>
+    </template>
+
+
+    <template id = "s_map_osm" name="Osmmap">
+        <section class="s_map_osm oe_structure container-fluid js_dynamic_snippet_osm" t-att-data-map-address="' '.join(filter(None, (user_id.company_id.street, user_id.company_id.city, user_id.company_id.state_id.display_name, user_id.company_id.country_id.display_name)))">
+            <div class="s_map_osm_color_filter"/>
+        </section>
+    </template>
+
+    <template id="static_snippet_structure" inherit_id="website.snippets" name = "osm snippets">
+        <xpath expr = "//div[@id='snippet_effect']/div[hasclass('o_panel_body')]" position = "inside">
+            <t t-snippet="osm_website.s_map_osm" string="OPEN STREET MAPS" t-thumbnail="/osm_website/static/src/img/s_osm.svg"></t>
+        </xpath>
+        
+    </template>
+
+<record id="osm_website.s_map_osm_000_scss" model="ir.asset">
+    <field name="name">OSM_Map 000 SCSS</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">osm_website/static/src/js/000.scss</field>
+</record>
+    
+<record id="osm_website.s_map_osm_000_js" model="ir.asset">
+    <field name="name">OSM_Map 000 JS</field>
+    <field name="bundle">web.assets_frontend</field>
+    <field name="path">osm_website/static/src/js/000.js</field>
+</record>
+
+</odoo>
